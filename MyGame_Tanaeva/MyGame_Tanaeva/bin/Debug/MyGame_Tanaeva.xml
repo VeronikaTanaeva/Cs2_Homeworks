@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyGame_Tanaeva</name>
+    </assembly>
+    <members>
+        <member name="T:MyGame_Tanaeva.ICollision">
+            <summary>
+            Интерфейс столкновений, наследуемый только  объектами, которые могут участвовать в столкновениях (пуля и астероид, впоследствии корабль)
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.ICollision.CollisionUpdate">
+            <summary>
+            Смена позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Bullet">
+            <summary>
+            Класс "Пуля"
+            Пуля существует единственная. Движется строго слева направо по прямой.
+            Когда пуля уходит за границу игры или сталкивается с астероидом, она снова появляется в координате х=0 в рандомной координате у в пределах игрового поля
+            </summary>
+        </member>
+        <member name="F:MyGame_Tanaeva.Form1.components">
+            <summary>
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.Dispose(System.Boolean)">
+            <summary>
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.InitializeComponent">
+            <summary>
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="F:MyGame_Tanaeva.Form2.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form2.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form2.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Properties.Resources">
+            <summary>
+              Класс ресурсов со строгим типом для поиска локализованных строк и пр.
+            </summary>
+        </member>
+        <member name="P:MyGame_Tanaeva.Properties.Resources.ResourceManager">
+            <summary>
+              Возврат кэшированного экземпляра ResourceManager, используемого этим классом.
+            </summary>
+        </member>
+        <member name="P:MyGame_Tanaeva.Properties.Resources.Culture">
+            <summary>
+              Переопределяет свойство CurrentUICulture текущего потока для всех
+              подстановки ресурсов с помощью этого класса ресурсов со строгим типом.
+            </summary>
+        </member>
+    </members>
+</doc>
