@@ -62,6 +62,7 @@
             this.btnLeaderboard.TabIndex = 4;
             this.btnLeaderboard.Text = "Рекорды";
             this.btnLeaderboard.UseVisualStyleBackColor = true;
+            this.btnLeaderboard.Click += new System.EventHandler(this.btnLeaderboard_Click);
             // 
             // btnExit
             // 
@@ -71,6 +72,7 @@
             this.btnExit.TabIndex = 5;
             this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // Form1
             // 

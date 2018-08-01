@@ -11,7 +11,7 @@ namespace MyGame_Tanaeva
         bool Collision(ICollision obj);
         Rectangle Rect { get; }
         /// <summary>
-        /// Смена позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
+        /// Метод для смена позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
         /// </summary>
         void CollisionUpdate();
     }
@@ -135,6 +135,10 @@ namespace MyGame_Tanaeva
         }
     }
 
+    /// <summary>
+    /// Класс "Астероиды". 
+    /// Спавнятся где получится в пределах экрана, движутся как им больше нравится. При столкновении с пулей спавнятся на правой границе экрана.
+    /// </summary>
     class Asteroid : BaseObject,  ICollision
     {
         Image image;
@@ -180,6 +184,7 @@ namespace MyGame_Tanaeva
 
         public Rectangle Rect => new Rectangle(Pos, Size);
     }
+
     /// <summary>
     /// Класс "Пуля"
     /// Пуля существует единственная. Движется строго слева направо по прямой.

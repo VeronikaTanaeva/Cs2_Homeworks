@@ -12,6 +12,9 @@ namespace MyGame_Tanaeva
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Форма с заставкой и меню
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +34,16 @@ namespace MyGame_Tanaeva
             Game.Init(form);
             Game.Draw();
             form.ShowDialog();
+        }
+
+        private void btnLeaderboard_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Даже кораблик ещё не осилен, какие рекорды?");
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {            
+            Application.Exit();            
         }
     }
 }

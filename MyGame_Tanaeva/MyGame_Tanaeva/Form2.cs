@@ -12,8 +12,11 @@ namespace MyGame_Tanaeva
 {
     public partial class Form2 : Form
     {
-        public static bool flag= true;
+        //public static bool flag= true;
 
+        /// <summary>
+        /// Окошко с самой игрой
+        /// </summary>
         public Form2()
         {
             InitializeComponent();

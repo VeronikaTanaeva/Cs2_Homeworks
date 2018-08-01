@@ -11,7 +11,13 @@
         </member>
         <member name="M:MyGame_Tanaeva.ICollision.CollisionUpdate">
             <summary>
-            Смена позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
+            Метод для смена позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Asteroid">
+            <summary>
+            Класс "Астероиды". 
+            Спавнятся где получится в пределах экрана, движутся как им больше нравится. При столкновении с пулей спавнятся на правой границе экрана.
             </summary>
         </member>
         <member name="T:MyGame_Tanaeva.Bullet">
@@ -19,6 +25,11 @@
             Класс "Пуля"
             Пуля существует единственная. Движется строго слева направо по прямой.
             Когда пуля уходит за границу игры или сталкивается с астероидом, она снова появляется в координате х=0 в рандомной координате у в пределах игрового поля
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.#ctor">
+            <summary>
+            Форма с заставкой и меню
             </summary>
         </member>
         <member name="F:MyGame_Tanaeva.Form1.components">
@@ -38,6 +49,11 @@
             содержимое этого метода с помощью редактора кода.
             </summary>
         </member>
+        <member name="M:MyGame_Tanaeva.Form2.#ctor">
+            <summary>
+            Окошко с самой игрой
+            </summary>
+        </member>
         <member name="F:MyGame_Tanaeva.Form2.components">
             <summary>
             Required designer variable.
@@ -53,6 +69,11 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.GameObjectException">
+            <summary>
+            Исключение для проверки параметров, с которыми создаём астероиды.
             </summary>
         </member>
         <member name="T:MyGame_Tanaeva.Properties.Resources">
