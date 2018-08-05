@@ -44,12 +44,21 @@ namespace MyGame_Tanaeva
         {
         }
 
+        /// <summary>
+        /// Описание журнала событий (столкновений объектов)
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="sw"></param>
         static void JournalMessage(string msg, StreamWriter sw)
         {
             sw.WriteLine(msg);
             sw.Flush();
         }
 
+        /// <summary>
+        /// Инициализация новой игры
+        /// </summary>
+        /// <param name="form"></param>
         public static void Init(Form form)
         {
             score = bcount = 0;            
@@ -70,16 +79,20 @@ namespace MyGame_Tanaeva
             Load();
 
             Ship.MessageDie += Finish;
-
-            // Timer timer = new Timer { Interval = 50 };
+            
             _timer.Start();
             _timer.Tick += Timer_Tick;
             
         }
 
+        /// <summary>
+        /// Таймер, по которому вызывается перерисовка экрана игры
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Timer_Tick(object sender, EventArgs e)
         {
-            if (Program.Count())
+            if (Program.Count()) //проверка, открыто ли приложение; если нет - нужно оставить таймер и закрыть поток, пишуший лог
             {
                 Draw();
                 Update();
@@ -91,6 +104,9 @@ namespace MyGame_Tanaeva
             }
         }
 
+        /// <summary>
+        /// Отрисовка экрана заставки и игры
+        /// </summary>
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
@@ -106,12 +122,14 @@ namespace MyGame_Tanaeva
             if (_ship != null)
             {
                 Buffer.Graphics.DrawString("Energy:" + _ship.Energy + "\tScore:" + score, SystemFonts.DefaultFont, Brushes.White, 0, 0);
-                //Buffer.Graphics.DrawString("Score:" + score, SystemFonts.DefaultFont, Brushes.White, 0, 1);
             }
             if (Program.Count()) //не перерисовываем окно с игрой, если оно закрыто
                 Buffer.Render();
         }
 
+        /// <summary>
+        /// Обновлении информации о местоположении объектов на экране игры
+        /// </summary>
         public static void Update()
         {
             foreach (BaseObject obj in _objs) obj.Update();
@@ -120,27 +138,25 @@ namespace MyGame_Tanaeva
             {
                 if (_asteroids[i] == null) continue;
                 _asteroids[i].Update();
-                if (_bullet != null && _bullet.Collision(_asteroids[i]))
+                if (_bullet != null && _bullet.Collision(_asteroids[i])) //проверка попадания в астероид
                 {
                     System.Media.SystemSounds.Hand.Play();
                     actionTarget("Астероид сбит!", sw);
-                    //_asteroids[i] = null;
-                    _asteroids[i].CollisionUpdate();
-                    _bullet = null;
-                    score++;
+                    _asteroids[i].CollisionUpdate(); //при попадании в астероид он снова возникает в правой части экрана; т.о. астероиды бесконечны
+                    _bullet = null; //пуля при попадании исчезает
+                    score++; //при попадании в астероид начисляются очки
                     continue;
                 }
                 var rnd = new Random();
-                if (_ship.Collision(_asteroids[i]))
+                if (_ship.Collision(_asteroids[i])) //если астероид врезается в корабль, у корабля тратится энергия, а астероид пропадает и снова отрисовывается в правой части экрана
                 {
                     System.Media.SystemSounds.Asterisk.Play();
                     actionTarget("Корабль подбит!", sw);
                     _ship?.EnergyLow(rnd.Next(1, 10));
                     _asteroids[i].CollisionUpdate();
                     _ship.CollisionUpdate();
-                    //continue;
                 }
-                if(_ship.Collision(_medkit))
+                if(_ship.Collision(_medkit)) //при столкновении корабля и аптечки у корабля восстанавливается энергия, аптечка тут же заново отрисовывается в другом месте вдоль левой части экрана
                 {
                     actionTarget("Аптечка подобрана!", sw);
                     _ship.EnergyAdd(rnd.Next(1, 10));
@@ -156,7 +172,7 @@ namespace MyGame_Tanaeva
             _objs = new BaseObject[60];
             int x, y, vx, vy;
 
-                for (int i = 0; i < _objs.Length; i = i + 4)
+                for (int i = 0; i < _objs.Length; i = i + 4) //эти четыре цикла создаём фон
                     _objs[i] = new SmallPlanet(new Point(600, i * 20), new Point(-i - 1, -i - 1), new Size(10, 10));
                 for (int i = 1; i < _objs.Length; i = i + 4)
                     _objs[i] = new Star(new Point(600, i * 20), new Point(-i, 0), new Size(10, 10));
@@ -196,28 +212,22 @@ namespace MyGame_Tanaeva
                 _asteroids[i] = new Asteroid(new Point(x, y), new Point(vx, vy), new Size(20, 20));
             }
             
-            _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(50, 50));
+            _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(50, 50)); //создали кораблик
 
-            _medkit = new MedKit(new Point(0, Game.Height/2), new Point(0, 0), new Size(20, 20));
+            _medkit = new MedKit(new Point(0, Game.Height/2), new Point(0, 0), new Size(20, 20)); //создали аптечку
 
         }        
-        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        private static void Form_KeyDown(object sender, KeyEventArgs e) //движение корабя по нажатию стрелок вверх и вниз, а также стрельба на ctrl
         {
             if (e.KeyCode == Keys.ControlKey)
-                _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(30, 0), new Size(4, 1));
+                _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(30, 0), new Size(4, 1)); //пуля на данный момент единственная
             if (e.KeyCode == Keys.Up) _ship.Up();
             if (e.KeyCode == Keys.Down) _ship.Down();
         }
-        public static void Finish()
+        public static void Finish() //конец игры, наступающий, когда у корабля не остаётся энергии
         {
-            _timer.Stop();
-            sw.Close();
-            //foreach (Form f in Application.OpenForms)
-            //{
-            //    if (f.Name == "Form2")
-            //        f.Close();
-            //}
-            //string message = @"Конец!/nВы набрали " + score + " очков,/nсбивая астероиды!";
+            _timer.Stop(); //останавливаем таймер, вызывающий рисование на форме и обновление состояния объектов
+            sw.Close(); //закрываем поток логирования
             Buffer.Graphics.DrawString("Конец!\nВы набрали " + score + " очков,\nсбивая астероиды!", new Font(FontFamily.GenericSansSerif, 30, FontStyle.Underline), Brushes.White, 200, 100);
             Buffer.Render();
         }

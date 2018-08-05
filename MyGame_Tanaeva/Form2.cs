@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace MyGame_Tanaeva
 {
-    /// <summary>
-    /// Окошко с самой игрой
-    /// </summary>
     public partial class Form2 : Form
     {
         //public static bool flag= true;
 
+        /// <summary>
+        /// Окошко с самой игрой
+        /// </summary>
         public Form2()
         {
             InitializeComponent();

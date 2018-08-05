@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-// Создаем шаблон приложения, где подключаем модули
+
 namespace MyGame_Tanaeva
 {
 
@@ -22,6 +22,10 @@ namespace MyGame_Tanaeva
             form.ShowDialog();
         }
 
+        /// <summary>
+        /// Метод, определяющий, открыто ли окно с игрой
+        /// </summary>
+        /// <returns></returns>
         public static bool Count()
         {
             foreach (Form f in Application.OpenForms)

@@ -6,10 +6,8 @@ namespace MyGame_Tanaeva
     /// <summary>
     /// Делегат для обработки смерти корабля
     /// </summary>
-    public delegate void Message();
+    public delegate void Message();  
     
-
-
     /// <summary>
     /// Интерфейс столкновений, наследуемый только  объектами, которые могут участвовать в столкновениях (пуля и астероид, впоследствии корабль)
     /// </summary>
@@ -18,11 +16,14 @@ namespace MyGame_Tanaeva
         bool Collision(ICollision obj);
         Rectangle Rect { get; }
         /// <summary>
-        /// Метод для смена позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
+        /// Метод для смены позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
         /// </summary>
         void CollisionUpdate();
     }
 
+    /// <summary>
+    /// Абстрактный класс-родитель для всех объектов заставки и самой игры
+    /// </summary>
     abstract class BaseObject
     {
         protected Point Pos;
@@ -41,6 +42,9 @@ namespace MyGame_Tanaeva
         public abstract void Update();
     }
 
+    /// <summary>
+    /// Фоновый объект: маленькая планета
+    /// </summary>
     class SmallPlanet : BaseObject
     {
         public SmallPlanet(Point pos, Point dir, Size size) : base(pos, dir, size)
@@ -66,6 +70,9 @@ namespace MyGame_Tanaeva
 
     }
 
+    /// <summary>
+    /// Фоновый объект: звезда
+    /// </summary>
     class Star : BaseObject
     {
         public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
@@ -86,9 +93,11 @@ namespace MyGame_Tanaeva
             if (Pos.X > Game.Width)
                 Pos.X = 0;
         }
-
     }
 
+    /// <summary>
+    /// Фоновый объект - планета
+    /// </summary>
     class PlanetImage : BaseObject
     {
         Image image;
@@ -122,7 +131,9 @@ namespace MyGame_Tanaeva
         }
 
     }
-
+    /// <summary>
+    /// Фоновый объект - "туманность"
+    /// </summary>
     class Nebula : BaseObject
     {
         public Nebula(Point pos, Point dir, Size size) : base(pos, dir, size)
@@ -222,11 +233,9 @@ namespace MyGame_Tanaeva
         {
             Random brand = new Random();
             Pos.X = Pos.X + Dir.X;
-            if (Pos.X > Game.Width) // - Size.Width)
+            if (Pos.X > Game.Width) 
             {
-                //Pos.X = 0;
-                //Pos.Y = brand.Next(0, Game.Height);
-                Dir.X = 0; //плохой способ сделать так, чтобы пуля не возвращалась, улетая за пределы экрана
+                Game._bullet = null; //улетая за пределы экрана, пуля перестаёт существовать
             }
 
         }
@@ -243,6 +252,10 @@ namespace MyGame_Tanaeva
         public Rectangle Rect => new Rectangle(Pos, Size);
     }
 
+    /// <summary>
+    /// Корабль
+    /// Появляется в правой части игрового поля, может двигаться вверх-вниз по нажатию клавиш-стрелок и стрелять по ctrl
+    /// </summary>
     class Ship : BaseObject, ICollision
     {
         private int _energy;
@@ -305,6 +318,9 @@ namespace MyGame_Tanaeva
         }
     }
 
+    /// <summary>
+    /// Аптечка
+    /// </summary>
     class MedKit : BaseObject, ICollision
     {
         Image image;
@@ -328,14 +344,7 @@ namespace MyGame_Tanaeva
 
         public override void Update()
         {
-            //Random arand = new Random();
-            //Pos.X = Pos.X + Dir.X;
-            //Pos.Y = Pos.Y + Dir.Y;
-            //if (Pos.X < 0) Dir.X = -Dir.X;
-            //if (Pos.X > Game.Width - Size.Width)
-            //    Dir.X = -Dir.X;
-            //if (Pos.Y < 0) Dir.Y = -Dir.Y;
-            //if (Pos.Y > Game.Height - Size.Height) Dir.Y = -Dir.Y;
+            //аптечка висит на месте, пока             
         }
 
         public void CollisionUpdate()

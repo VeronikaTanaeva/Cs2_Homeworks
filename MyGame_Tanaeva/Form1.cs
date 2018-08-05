@@ -25,6 +25,11 @@ namespace MyGame_Tanaeva
 
         }
 
+        /// <summary>
+        /// По нажатию кнопки "Начать игру" открывается новое окно с игрой
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStartGame_Click(object sender, EventArgs e)
         {
 
@@ -36,11 +41,21 @@ namespace MyGame_Tanaeva
             form.ShowDialog();
         }
 
+        /// <summary>
+        /// По нажатию кнопки "Рекорды" когда-нибудь будет показываться таблица лидеров
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLeaderboard_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Даже кораблик ещё не осилен, какие рекорды?");
         }
 
+        /// <summary>
+        /// По нажатию кнопки "Выход" приложение закрывается
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExit_Click(object sender, EventArgs e)
         {            
             Application.Exit();            

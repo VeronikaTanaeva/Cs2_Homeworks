@@ -32,9 +32,20 @@
             Когда пуля уходит за границу игры или сталкивается с астероидом, она снова появляется в координате х=0 в рандомной координате у в пределах игрового поля
             </summary>
         </member>
+        <member name="T:MyGame_Tanaeva.Ship">
+            <summary>
+            Корабль
+            Появляется в правой части игрового поля, может двигаться вверх-вниз по нажатию клавиш-стрелок и стрелять по ctrl
+            </summary>
+        </member>
         <member name="E:MyGame_Tanaeva.Ship.MessageDie">
             <summary>
             Обработка смерти корабля
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.MedKit">
+            <summary>
+            Аптечка
             </summary>
         </member>
         <member name="T:MyGame_Tanaeva.Form1">
