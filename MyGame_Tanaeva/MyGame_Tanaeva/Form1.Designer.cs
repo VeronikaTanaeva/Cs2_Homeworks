@@ -1,5 +1,8 @@
 ﻿namespace MyGame_Tanaeva
 {
+    /// <summary>
+    /// Форма с заставкой и меню
+    /// </summary>
     partial class Form1
     {
         /// <summary>

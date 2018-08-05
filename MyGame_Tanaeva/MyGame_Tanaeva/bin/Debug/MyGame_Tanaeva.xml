@@ -4,6 +4,11 @@
         <name>MyGame_Tanaeva</name>
     </assembly>
     <members>
+        <member name="T:MyGame_Tanaeva.Message">
+            <summary>
+            Делегат для обработки смерти корабля
+            </summary>
+        </member>
         <member name="T:MyGame_Tanaeva.ICollision">
             <summary>
             Интерфейс столкновений, наследуемый только  объектами, которые могут участвовать в столкновениях (пуля и астероид, впоследствии корабль)
@@ -25,6 +30,16 @@
             Класс "Пуля"
             Пуля существует единственная. Движется строго слева направо по прямой.
             Когда пуля уходит за границу игры или сталкивается с астероидом, она снова появляется в координате х=0 в рандомной координате у в пределах игрового поля
+            </summary>
+        </member>
+        <member name="E:MyGame_Tanaeva.Ship.MessageDie">
+            <summary>
+            Обработка смерти корабля
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Form1">
+            <summary>
+            Форма с заставкой и меню
             </summary>
         </member>
         <member name="M:MyGame_Tanaeva.Form1.#ctor">
@@ -49,7 +64,7 @@
             содержимое этого метода с помощью редактора кода.
             </summary>
         </member>
-        <member name="M:MyGame_Tanaeva.Form2.#ctor">
+        <member name="T:MyGame_Tanaeva.Form2">
             <summary>
             Окошко с самой игрой
             </summary>
@@ -74,6 +89,11 @@
         <member name="T:MyGame_Tanaeva.GameObjectException">
             <summary>
             Исключение для проверки параметров, с которыми создаём астероиды.
+            </summary>
+        </member>
+        <member name="F:MyGame_Tanaeva.Game.sw">
+            <summary>
+            Ведение журнала событий
             </summary>
         </member>
         <member name="T:MyGame_Tanaeva.Properties.Resources">

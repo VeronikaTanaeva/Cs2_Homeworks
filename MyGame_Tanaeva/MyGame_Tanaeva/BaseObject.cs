@@ -4,6 +4,13 @@ using System.Drawing;
 namespace MyGame_Tanaeva
 {
     /// <summary>
+    /// Делегат для обработки смерти корабля
+    /// </summary>
+    public delegate void Message();
+    
+
+
+    /// <summary>
     /// Интерфейс столкновений, наследуемый только  объектами, которые могут участвовать в столкновениях (пуля и астероид, впоследствии корабль)
     /// </summary>
     interface ICollision
@@ -88,7 +95,7 @@ namespace MyGame_Tanaeva
 
         public PlanetImage(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            image = Image.FromFile(@"Images\planet.png"); 
+            image = Image.FromFile(@"Images\planet.png");
         }
 
         public override void Draw()
@@ -139,7 +146,7 @@ namespace MyGame_Tanaeva
     /// Класс "Астероиды". 
     /// Спавнятся где получится в пределах экрана, движутся как им больше нравится. При столкновении с пулей спавнятся на правой границе экрана.
     /// </summary>
-    class Asteroid : BaseObject,  ICollision
+    class Asteroid : BaseObject, ICollision
     {
         Image image;
 
@@ -176,7 +183,7 @@ namespace MyGame_Tanaeva
         public void CollisionUpdate()
         {
             Random brand = new Random();
-            Pos.X = Game.Width-Size.Width;
+            Pos.X = Game.Width - Size.Width;
             Pos.Y = brand.Next(0, Game.Height);
         }
 
@@ -193,7 +200,7 @@ namespace MyGame_Tanaeva
     class Bullet : BaseObject, ICollision
     {
         Image image;
-        
+
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
             image = Image.FromFile(@"Images\bullet.png");
@@ -215,12 +222,120 @@ namespace MyGame_Tanaeva
         {
             Random brand = new Random();
             Pos.X = Pos.X + Dir.X;
-            if (Pos.X > Game.Width - Size.Width)
+            if (Pos.X > Game.Width) // - Size.Width)
             {
-                Pos.X = 0;
-                Pos.Y = brand.Next(0, Game.Height);
+                //Pos.X = 0;
+                //Pos.Y = brand.Next(0, Game.Height);
+                Dir.X = 0; //плохой способ сделать так, чтобы пуля не возвращалась, улетая за пределы экрана
             }
-            
+
+        }
+
+        public void CollisionUpdate()
+        {
+            Random brand = new Random();
+            Pos.X = 0;
+            Pos.Y = brand.Next(0, Game.Height);
+        }
+
+        public bool Collision(ICollision o) => o.Rect.IntersectsWith(this.Rect);
+
+        public Rectangle Rect => new Rectangle(Pos, Size);
+    }
+
+    class Ship : BaseObject, ICollision
+    {
+        private int _energy;
+        Image image;
+        public int Energy => _energy;
+        public void EnergyLow(int n)
+        {
+            _energy -= n;
+        }
+        public void EnergyAdd(int n)
+        {
+            int t = _energy + n;
+            _energy = (t>100) ? 100 : t;
+        }
+        public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+            _energy = 100;
+            image = Image.FromFile(@"Images\Ship.png");
+        }
+
+        public override void Draw()
+        {
+            try
+            {
+                Game.Buffer.Graphics.DrawImage(image, Pos.X, Pos.Y, Size.Width, Size.Height);
+            }
+            catch
+            {
+                Game.Buffer.Graphics.FillRectangle(Brushes.Yellow, Pos.X, Pos.Y, Size.Width, Size.Height);
+            };
+        }
+        public override void Update()
+        {
+        }
+        public void Up()
+        {
+            if (Pos.Y > 0) Pos.Y = Pos.Y - Dir.Y;
+        }
+        public void Down()
+        {
+            if (Pos.Y < Game.Height) Pos.Y = Pos.Y + Dir.Y;
+        }
+
+        /// <summary>
+        /// Обработка смерти корабля
+        /// </summary>
+        public static event Message MessageDie;
+        public void Die()
+        {
+            MessageDie?.Invoke();
+        }
+
+        public bool Collision(ICollision o) => o.Rect.IntersectsWith(this.Rect);
+
+        public Rectangle Rect => new Rectangle(Pos, Size);
+
+        public void CollisionUpdate()
+        {
+            Game.Buffer.Graphics.FillEllipse(Brushes.Red, Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+    }
+
+    class MedKit : BaseObject, ICollision
+    {
+        Image image;
+
+        public MedKit(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+            image = Image.FromFile(@"Images\medkit.png");
+        }
+
+        public override void Draw()
+        {
+            try
+            {
+                Game.Buffer.Graphics.DrawImage(image, Pos.X, Pos.Y, Size.Width, Size.Height);
+            }
+            catch
+            {
+                Game.Buffer.Graphics.FillEllipse(Brushes.White, Pos.X, Pos.Y, Size.Width, Size.Height);
+            }
+        }
+
+        public override void Update()
+        {
+            //Random arand = new Random();
+            //Pos.X = Pos.X + Dir.X;
+            //Pos.Y = Pos.Y + Dir.Y;
+            //if (Pos.X < 0) Dir.X = -Dir.X;
+            //if (Pos.X > Game.Width - Size.Width)
+            //    Dir.X = -Dir.X;
+            //if (Pos.Y < 0) Dir.Y = -Dir.Y;
+            //if (Pos.Y > Game.Height - Size.Height) Dir.Y = -Dir.Y;
         }
 
         public void CollisionUpdate()

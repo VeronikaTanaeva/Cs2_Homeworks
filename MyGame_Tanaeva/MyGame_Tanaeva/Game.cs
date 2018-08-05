@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace MyGame_Tanaeva
 {
@@ -22,15 +23,37 @@ namespace MyGame_Tanaeva
         public static int Width { get; set; }
         public static int Height { get; set; }
         public static BaseObject[] _objs;
-        public static BaseObject[] _asteroids;
+        public static Asteroid[] _asteroids;
+        private static Ship _ship;
+        //public static Bullet[] _bullet;
         public static Bullet _bullet;
+        public static int bcount;
+        public static MedKit _medkit;
+        public static int score;
         
+        private static Timer _timer = new Timer();
+        public static Random Rnd = new Random();
+
+        /// <summary>
+        /// Ведение журнала событий
+        /// </summary>
+        public static StreamWriter sw;
+        public static Action<string, StreamWriter> actionTarget = new Action<string, StreamWriter>(JournalMessage);
+
         static Game()
         {
         }
 
+        static void JournalMessage(string msg, StreamWriter sw)
+        {
+            sw.WriteLine(msg);
+            sw.Flush();
+        }
+
         public static void Init(Form form)
         {
+            score = bcount = 0;            
+            sw = new StreamWriter(@"Journal\log.txt"); //при создании игры перезаписывается файл с логом игры
             Graphics g;
             _context = BufferedGraphicsManager.Current;
             g = form.CreateGraphics();
@@ -42,50 +65,91 @@ namespace MyGame_Tanaeva
 
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
+            form.KeyDown += Form_KeyDown;
 
-                Load();
+            Load();
 
-                Timer timer = new Timer { Interval = 50 };
-                timer.Start();
-                timer.Tick += Timer_Tick;
+            Ship.MessageDie += Finish;
+
+            // Timer timer = new Timer { Interval = 50 };
+            _timer.Start();
+            _timer.Tick += Timer_Tick;
             
         }
 
         private static void Timer_Tick(object sender, EventArgs e)
         {
-            Draw();
-            Update();
+            if (Program.Count())
+            {
+                Draw();
+                Update();
+            }
+            else
+            {
+                _timer?.Stop();
+                sw?.Close();
+            }
         }
 
         public static void Draw()
         {
-            Buffer.Graphics.Clear(Color.FromArgb(10, 3, 31));
+            Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs)
                 obj.Draw();
             foreach (Asteroid a in _asteroids)
-                a.Draw();
-            _bullet.Draw();
+            {
+                a?.Draw();
+            }
+            _bullet?.Draw();
+            _ship?.Draw();
+            _medkit.Draw();
+            if (_ship != null)
+            {
+                Buffer.Graphics.DrawString("Energy:" + _ship.Energy + "\tScore:" + score, SystemFonts.DefaultFont, Brushes.White, 0, 0);
+                //Buffer.Graphics.DrawString("Score:" + score, SystemFonts.DefaultFont, Brushes.White, 0, 1);
+            }
             if (Program.Count()) //не перерисовываем окно с игрой, если оно закрыто
-                Buffer.Render(); 
+                Buffer.Render();
         }
 
         public static void Update()
         {
-            foreach (BaseObject obj in _objs)
-                obj.Update();
-            foreach (Asteroid a in _asteroids)
+            foreach (BaseObject obj in _objs) obj.Update();
+            _bullet?.Update();
+            for (var i = 0; i < _asteroids.Length; i++)
             {
-                a.Update();
-                if (a.Collision(_bullet))
+                if (_asteroids[i] == null) continue;
+                _asteroids[i].Update();
+                if (_bullet != null && _bullet.Collision(_asteroids[i]))
                 {
                     System.Media.SystemSounds.Hand.Play();
-                    a.CollisionUpdate();
-                    _bullet.CollisionUpdate();
+                    actionTarget("Астероид сбит!", sw);
+                    //_asteroids[i] = null;
+                    _asteroids[i].CollisionUpdate();
+                    _bullet = null;
+                    score++;
+                    continue;
                 }
+                var rnd = new Random();
+                if (_ship.Collision(_asteroids[i]))
+                {
+                    System.Media.SystemSounds.Asterisk.Play();
+                    actionTarget("Корабль подбит!", sw);
+                    _ship?.EnergyLow(rnd.Next(1, 10));
+                    _asteroids[i].CollisionUpdate();
+                    _ship.CollisionUpdate();
+                    //continue;
+                }
+                if(_ship.Collision(_medkit))
+                {
+                    actionTarget("Аптечка подобрана!", sw);
+                    _ship.EnergyAdd(rnd.Next(1, 10));
+                    _medkit.CollisionUpdate();
+                }
+                if ((_bullet!=null)&& (_medkit.Collision(_asteroids[i]) || _medkit.Collision(_bullet))) continue; //если аптечка сталкивается с чем-то, кроме корабля, игнорируем это событие
+                if (_ship.Energy <= 0) _ship?.Die();
             }
-            _bullet.Update();
-        }
-
+        }
 
         public static void Load()
         {
@@ -104,7 +168,7 @@ namespace MyGame_Tanaeva
 
             Random rand = new Random();
 
-            _asteroids = new BaseObject[10]; //создаю астероиды отдельно, чтобы при проверке столкновений не выискивать астероиды среди объектов фона
+            _asteroids = new Asteroid[10]; //создаю астероиды отдельно, чтобы при проверке столкновений не выискивать астероиды среди объектов фона
             for (int i = 0; i < _asteroids.Length; i++)
             {
                 try //намеренно позволяю астероидам создаться с недопустимыми параметрами, чтобы отловить и исправить такую ситуацию
@@ -129,11 +193,33 @@ namespace MyGame_Tanaeva
                     vx = rand.Next(-20, 20);
                     vy = rand.Next(-20, 20);
                 }
-                _asteroids[i] = new Asteroid(new Point(x, y), new Point(vx, vy), new Size(50, 50));
+                _asteroids[i] = new Asteroid(new Point(x, y), new Point(vx, vy), new Size(20, 20));
             }
+            
+            _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(50, 50));
 
-            _bullet = new Bullet(new Point(0, 300), new Point(30, 0), new Size(30, 10));
+            _medkit = new MedKit(new Point(0, Game.Height/2), new Point(0, 0), new Size(20, 20));
 
+        }        
+        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+                _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(30, 0), new Size(4, 1));
+            if (e.KeyCode == Keys.Up) _ship.Up();
+            if (e.KeyCode == Keys.Down) _ship.Down();
         }
+        public static void Finish()
+        {
+            _timer.Stop();
+            sw.Close();
+            //foreach (Form f in Application.OpenForms)
+            //{
+            //    if (f.Name == "Form2")
+            //        f.Close();
+            //}
+            //string message = @"Конец!/nВы набрали " + score + " очков,/nсбивая астероиды!";
+            Buffer.Graphics.DrawString("Конец!\nВы набрали " + score + " очков,\nсбивая астероиды!", new Font(FontFamily.GenericSansSerif, 30, FontStyle.Underline), Brushes.White, 200, 100);
+            Buffer.Render();
+        }
     }
 }
