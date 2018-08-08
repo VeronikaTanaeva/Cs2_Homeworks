@@ -73,7 +73,7 @@
     <Compile Include="GameDescription\GameObjectException.cs" />
     <Compile Include="GameDescription\GameSpawnAsteroids.cs" />
     <Compile Include="GameDescription\GameUpdate.cs" />
-    <Compile Include="GameObjects\Ship.cs" />
+    <Compile Include="GameObjects\ActingObjects\Ship.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameDescription\ShipActions.cs" />

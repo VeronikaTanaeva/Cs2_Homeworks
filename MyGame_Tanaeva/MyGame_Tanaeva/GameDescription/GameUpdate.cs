@@ -13,23 +13,22 @@ namespace MyGame_Tanaeva
         /// </summary>
         public static void Update()
         {
-            int acount = astcount;
             foreach (BaseObject obj in _objs) obj.Update();
             foreach (Bullet b in _bullets)
             {
                 b.Update();
-                //предусмотреть вылет за пределы экрана без столкновений
             }
             for (int i = 0; i < _asteroids.Count; i++)
             {
-                if (_asteroids[i] == null)
-                {
-                    acount--;
-                    continue;
-                }
                 _asteroids[i].Update();
                 for (int j = 0; j < _bullets.Count; j++)
                 {
+                    if (_bullets[j].OutOfScreen())
+                    {
+                        _bullets[j] = null; //пуля при пересечении границы экрана исчезает
+                        _bullets.RemoveAt(j);
+                        continue;
+                    }
                     if (_bullets[j] == null) continue;
                     if (_asteroids[i] != null && _bullets[j].Collision(_asteroids[i]))
                     {
@@ -37,12 +36,6 @@ namespace MyGame_Tanaeva
                         actionTarget("Астероид сбит!", sw);
                         _asteroids[i].CollisionUpdate(_asteroids[i]);// = null; //при столкновении с пулей или кораблём астероид разрушается
                         _asteroids.RemoveAt(i);
-                        acount--;
-                        if (acount == 0)
-                        {
-                            astcount++;
-                            SpawnAsteroids(astcount);
-                        }
                         _bullets[j] = null; //пуля при попадании исчезает
                         _bullets.RemoveAt(j);
                         j--;
@@ -50,11 +43,10 @@ namespace MyGame_Tanaeva
                         continue;
                     }
                 }
-                if (_asteroids[i] == null || !_ship.Collision(_asteroids[i])) continue;
+                if (_asteroids.Count == 0 || !_ship.Collision(_asteroids[i])) continue; 
                 var rnd = new Random();
-                if (_ship.Collision(_asteroids[i])) //если астероид врезается в корабль, у корабля тратится энергия, а астероид пропадает и снова отрисовывается в правой части экрана
+                if (_ship.Collision(_asteroids[i])) //если астероид врезается в корабль, у корабля тратится энергия, а астероид пропадает
                 {
-                    acount--;
                     System.Media.SystemSounds.Asterisk.Play();
                     actionTarget("Корабль подбит!", sw);
                     _ship?.EnergyLow(rnd.Next(1, 10));
@@ -68,12 +60,13 @@ namespace MyGame_Tanaeva
                     _ship.EnergyAdd(rnd.Next(1, 10));
                     _medkit.CollisionUpdate(_medkit);
                 }
-                if (acount == 0)
+
+                if (_asteroids.Count == 0)//спавним новые астероиды, если старые закончились
                 {
                     astcount++;
                     SpawnAsteroids(astcount);
                 }
-                //if ((_bullet != null) && (_medkit.Collision(_asteroids[i]) || _medkit.Collision(_bullet))) continue; //если аптечка сталкивается с чем-то, кроме корабля, игнорируем это событие
+
                 if (_ship.Energy <= 0) _ship?.Die();
             }
         }

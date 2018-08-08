@@ -51,12 +51,12 @@ namespace MyGame_Tanaeva//.GameObjects
         }
         public void Down()
         {
-            if (Pos.Y < Game.Height) Pos.Y = Pos.Y + Dir.Y;
+            if (Pos.Y < Game.Height-Size.Height) Pos.Y = Pos.Y + Dir.Y;
         }
 
         public void Right()
         {
-            if (Pos.X < Game.Width) Pos.X = Pos.X + Dir.X;
+            if (Pos.X < Game.Width-Size.Width) Pos.X = Pos.X + Dir.X;
         }
 
         public void Left()

@@ -17,7 +17,7 @@ namespace MyGame_Tanaeva
         private static Ship _ship;
         public static List<Bullet> _bullets;
         public static MedKit _medkit;
-        public static int score;
+        public static int score, acount;
         public static List<Asteroid> _asteroids;
         
         private static Timer _timer = new Timer();
@@ -55,7 +55,8 @@ namespace MyGame_Tanaeva
             Load();
 
             Ship.MessageDie += Finish;
-            
+
+            _timer.Interval = interval;
             _timer.Start();
             _timer.Tick += Timer_Tick;
             
@@ -90,11 +91,12 @@ namespace MyGame_Tanaeva
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void Timer_Tick(object sender, EventArgs e)
+        public static void Timer_Tick(object sender, EventArgs e)
         {
             if (Program.Count()) //проверка, открыто ли приложение; если нет - нужно оставить таймер и закрыть поток, пишуший лог
             {
                 Draw();
+                acount = astcount;
                 Update();
             }
             else
@@ -102,6 +104,21 @@ namespace MyGame_Tanaeva
                 _timer?.Stop();
                 sw?.Close();
             }
-        }
+        }
+        
+        /// <summary>
+        /// Выгрузка игры
+        /// </summary>
+        public static void Finish()
+        {
+            _timer.Stop(); //останавливаем таймер, вызывающий рисование на форме и обновление состояния объектов
+            sw.Close(); //закрываем поток логирования
+            StreamWriter records = new StreamWriter(@"Docs\records.txt", true);
+            records.WriteLine(score);
+            records.Flush();
+            records.Close();
+            Buffer.Graphics.DrawString("Конец!\nВы набрали " + score + " очков,\nсбивая астероиды!", new Font(FontFamily.GenericSansSerif, 30, FontStyle.Underline), Brushes.White, 200, 100);
+            Buffer.Render();
+        }
     }
 }

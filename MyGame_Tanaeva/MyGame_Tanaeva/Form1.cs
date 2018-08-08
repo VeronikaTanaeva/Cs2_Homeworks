@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -42,13 +43,21 @@ namespace MyGame_Tanaeva
         }
 
         /// <summary>
-        /// По нажатию кнопки "Рекорды" когда-нибудь будет показываться таблица лидеров
+        /// Прототип таблицы лидеров
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnLeaderboard_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Даже кораблик ещё не осилен, какие рекорды?");
+            StreamReader records = new StreamReader(@"Docs\records.txt", true);
+            string str="";
+            do
+            {
+                str += records.ReadLine() + "\n\r";
+            } while (!records.EndOfStream);
+
+            MessageBox.Show(str);
+            records.Close();
         }
 
         /// <summary>

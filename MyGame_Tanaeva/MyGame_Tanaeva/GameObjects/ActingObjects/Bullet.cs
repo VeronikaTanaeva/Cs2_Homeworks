@@ -36,10 +36,7 @@ namespace MyGame_Tanaeva//.GameObjects.ActingObjects
         public override void Update()
         {
             Pos.X = Pos.X + Dir.X;
-            if (Pos.X > Game.Width)
-            {
-                CollisionUpdate(this);
-            }
+
 
         }
 
@@ -47,6 +44,11 @@ namespace MyGame_Tanaeva//.GameObjects.ActingObjects
         {
             image.Dispose();
             b = null;
+        }
+
+        public bool OutOfScreen()
+        {
+            return (Pos.X > Game.Width);
         }
 
         public bool Collision(ICollision o) => o.Rect.IntersectsWith(this.Rect);

@@ -145,6 +145,11 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:MyGame_Tanaeva.Game.Finish">
+            <summary>
+            Выгрузка игры
+            </summary>
+        </member>
         <member name="M:MyGame_Tanaeva.Game.Draw">
             <summary>
             Отрисовка экрана заставки и игры
@@ -181,11 +186,6 @@
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
-        </member>
-        <member name="M:MyGame_Tanaeva.Game.Finish">
-            <summary>
-            Выгрузка игры
-            </summary>
         </member>
         <member name="T:MyGame_Tanaeva.GameObjectException">
             <summary>
