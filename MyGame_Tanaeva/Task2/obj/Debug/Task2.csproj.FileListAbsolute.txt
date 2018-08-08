@@ -1,0 +1,7 @@
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\bin\Debug\Task2.exe.config
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\bin\Debug\Task2.exe
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\bin\Debug\Task2.pdb
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\obj\Debug\Task2.csprojAssemblyReference.cache
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\obj\Debug\Task2.csproj.CoreCompileInputs.cache
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\obj\Debug\Task2.exe
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\Task2\obj\Debug\Task2.pdb

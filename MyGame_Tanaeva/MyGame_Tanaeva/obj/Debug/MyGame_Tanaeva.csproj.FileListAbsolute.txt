@@ -1,0 +1,23 @@
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.csprojAssemblyReference.cache
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.Properties.Resources.resources
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.csproj.GenerateResource.cache
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.csproj.CoreCompileInputs.cache
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.exe.config
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.exe
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.pdb
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.exe
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.pdb
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.Form1.resources
+D:\учёба GeekBrains\Coding\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.Form2.resources
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.exe.config
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.xml
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.exe
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\bin\Debug\MyGame_Tanaeva.pdb
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.csprojAssemblyReference.cache
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.Form1.resources
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.Form2.resources
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.Properties.Resources.resources
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.csproj.GenerateResource.cache
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.csproj.CoreCompileInputs.cache
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.exe
+D:\GeekBrains\CSharp\Cs2\Homeworks\MyGame_Tanaeva\MyGame_Tanaeva\obj\Debug\MyGame_Tanaeva.pdb
