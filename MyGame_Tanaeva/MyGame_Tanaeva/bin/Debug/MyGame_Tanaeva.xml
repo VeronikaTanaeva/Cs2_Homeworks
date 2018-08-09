@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyGame_Tanaeva</name>
+    </assembly>
+    <members>
+        <member name="T:MyGame_Tanaeva.Asteroid">
+            <summary>
+            Класс "Астероиды". 
+            Спавнятся где получится в пределах экрана, движутся как им больше нравится. При столкновении с пулей спавнятся на правой границе экрана.
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Bullet">
+            <summary>
+            Пуля
+            Движется строго слева направо по прямой.
+            Когда пуля уходит за границу игры или сталкивается с астероидом, она исчезает
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.MedKit">
+            <summary>
+            Аптечка
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Nebula">
+            <summary>
+            Фоновый объект - "туманность"
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.PlanetImage">
+            <summary>
+            Фоновый объект - планета
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.SmallPlanet">
+            <summary>
+            Фоновый объект: маленькая планета
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Star">
+            <summary>
+            Фоновый объект: звезда
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.BaseObject">
+            <summary>
+            Абстрактный класс-родитель для всех объектов заставки и самой игры
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.ICollision">
+            <summary>
+            Интерфейс столкновений взаимодействующих игровых объектов
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.ICollision.CollisionUpdate(MyGame_Tanaeva.BaseObject)">
+            <summary>
+            Метод для смены позиции объекта после столкновения: появиться в левой (пуля) или правой (астероид) части экрана на рандомной высоте
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Form1">
+            <summary>
+            Форма с заставкой и меню
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.#ctor">
+            <summary>
+            Форма с заставкой и меню
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.btnStartGame_Click(System.Object,System.EventArgs)">
+            <summary>
+            По нажатию кнопки "Начать игру" открывается новое окно с игрой
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.btnLeaderboard_Click(System.Object,System.EventArgs)">
+            <summary>
+            По нажатию кнопки "Рекорды" когда-нибудь будет показываться таблица лидеров
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.btnExit_Click(System.Object,System.EventArgs)">
+            <summary>
+            По нажатию кнопки "Выход" приложение закрывается
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:MyGame_Tanaeva.Form1.components">
+            <summary>
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.Dispose(System.Boolean)">
+            <summary>
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form1.InitializeComponent">
+            <summary>
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form2.#ctor">
+            <summary>
+            Окошко с самой игрой
+            </summary>
+        </member>
+        <member name="F:MyGame_Tanaeva.Form2.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form2.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Form2.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Init(System.Windows.Forms.Form)">
+            <summary>
+            Инициализация новой игры
+            </summary>
+            <param name="form"></param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Load">
+            <summary>
+            Первичная загрузка игры
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Timer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Таймер, по которому вызывается перерисовка экрана игры
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Finish">
+            <summary>
+            Выгрузка игры
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Draw">
+            <summary>
+            Отрисовка экрана заставки и игры
+            </summary>
+        </member>
+        <member name="F:MyGame_Tanaeva.Game.sw">
+            <summary>
+            Ведение журнала событий
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.JournalMessage(System.String,System.IO.StreamWriter)">
+            <summary>
+            Описание журнала событий (столкновений объектов)
+            </summary>
+            <param name="msg"></param>
+            <param name="sw"></param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.SpawnAsteroids(System.Int32)">
+            <summary>
+            Метод, создающий астероиды
+            </summary>
+            <param name="astcount">количество создаваемых астероидов</param>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Update">
+            <summary>
+            Обновлении информации о местоположении объектов на экране игры
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Game.Form_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Управление кораблём
+            Движение - стрелки вверх и вниз
+            Стрельба - ctrl
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:MyGame_Tanaeva.GameObjectException">
+            <summary>
+            Исключение для проверки параметров, с которыми создаём астероиды.
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Ship">
+            <summary>
+            Корабль
+            Появляется в правой части игрового поля, может двигаться вверх-вниз по нажатию клавиш-стрелок и стрелять по ctrl
+            </summary>
+        </member>
+        <member name="E:MyGame_Tanaeva.Ship.MessageDie">
+            <summary>
+            Обработка смерти корабля
+            </summary>
+        </member>
+        <member name="M:MyGame_Tanaeva.Program.Count">
+            <summary>
+            Метод, определяющий, открыто ли окно с игрой
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MyGame_Tanaeva.Message">
+            <summary>
+            Делегат для обработки смерти корабля
+            </summary>
+        </member>
+        <member name="T:MyGame_Tanaeva.Properties.Resources">
+            <summary>
+              Класс ресурсов со строгим типом для поиска локализованных строк и пр.
+            </summary>
+        </member>
+        <member name="P:MyGame_Tanaeva.Properties.Resources.ResourceManager">
+            <summary>
+              Возврат кэшированного экземпляра ResourceManager, используемого этим классом.
+            </summary>
+        </member>
+        <member name="P:MyGame_Tanaeva.Properties.Resources.Culture">
+            <summary>
+              Переопределяет свойство CurrentUICulture текущего потока для всех
+              подстановки ресурсов с помощью этого класса ресурсов со строгим типом.
+            </summary>
+        </member>
+    </members>
+</doc>
