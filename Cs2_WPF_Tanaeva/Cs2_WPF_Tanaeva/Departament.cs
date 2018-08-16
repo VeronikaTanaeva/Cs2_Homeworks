@@ -3,26 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Cs2_WPF_Tanaeva
 {
 
-    class Departament
+    public class Departament : INotifyPropertyChanged
     {
-        public string depName;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public Departament(string depName)
+        public string depName { get; set; }
+
+        public Departament()
         {
             this.depName = depName;
         }
+
+        public void LoadData()
+        {
+            
+        }
+
 
         /// <summary>
         /// Метод, возвращающий всю информацию о департаменте в строке
         /// </summary>
         /// <returns></returns>
-        public string DepToString()
+        public override string ToString()
         {
-            return depName;
+            return this.depName;
+        }
+
+        public void EditDep(string depName)
+        {
+            this.depName = depName;
+        }
+
+        public void AddDep(string name)
+        {
+            this.depName = name;
         }
     }
 }

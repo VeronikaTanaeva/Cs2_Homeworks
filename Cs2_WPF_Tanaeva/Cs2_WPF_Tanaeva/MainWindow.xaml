@@ -5,26 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cs2_WPF_Tanaeva"
         mc:Ignorable="d"
-        Title="MainWindow" Height="406.762" Width="800">
-    <Grid>
+        Title="MainWindow" Height="406.762" Width="980.944">
+
+    <Grid Margin="0,0,103,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
             <ColumnDefinition Width="70*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Name="lw_Deps" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="228" >
+        <ListView Name="lw_Deps" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="228" 
+                                    MouseDoubleClick="lwDeps_MouseDoubleClick" >
             <ListView.View>
                 <GridView >
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Название" 
+                                    Width="120" 
+                                    DisplayMemberBinding="{Binding depName, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Button Name="btn_Deps" Grid.Column="0" Content="Добавить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,339,0,0" Click="btn_Deps_Click"/>
 
-        <ListView Name="lw_Emps" Grid.Column="1" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="544">
+        <ListView Name="lw_Emps" Grid.Column="1" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="700" MouseDoubleClick="lwEmps_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Фамилия" 
+                                    Width="150" 
+                                    DisplayMemberBinding="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Имя" 
+                                    Width="150" 
+                                    DisplayMemberBinding="{Binding surname, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Возраст" 
+                                    Width="100" 
+                                    DisplayMemberBinding="{Binding age, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Зарплата" 
+                                    Width="100" 
+                                    DisplayMemberBinding="{Binding salary, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Департамент" 
+                                    Width="100" 
+                                    DisplayMemberBinding="{Binding depName, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
         </ListView>

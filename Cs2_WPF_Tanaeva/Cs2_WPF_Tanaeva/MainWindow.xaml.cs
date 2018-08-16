@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.ComponentModel;
+using System.Windows.Shapes;
 
 namespace Cs2_WPF_Tanaeva
 {
@@ -22,57 +22,39 @@ namespace Cs2_WPF_Tanaeva
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<Departament> dList = new ObservableCollection<Departament>();
-        ObservableCollection<Employee> eList = new ObservableCollection<Employee>();
+        public ObservableCollection<Departament> DepList { get; set; }
+        public ObservableCollection<Employee> EmpList { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
+            DepList = new ObservableCollection<Departament>();
+            EmpList = new ObservableCollection<Employee>();
             FillInit();
 
-            foreach (var d in dList)
-                lw_Deps.ItemsSource += d.DepToString();
-            foreach (var e in eList)
-                lw_Emps.ItemsSource += e.EmpToString();
+            lw_Deps.ItemsSource = DepList;
+            lw_Emps.ItemsSource = EmpList;
         }
+
 
         /// <summary>
         /// Начальное заполнение списков департаментов и сотрудников
         /// </summary>
-        private void FillInit()
+        public void FillInit()
         {
             Random r = new Random();
+
+
             for (int i = 1; i <= dCount; i++)
             {
-                Departament d = new Departament("Departament_" + i);
-                dList.Add(d);
+                DepList.Add(new Departament() { depName = "Departament_" + i });
             }
-            for (int i = 0; i <= eCount; i++)
+            for (int i = 1; i <= eCount; i++)
             {
-                Employee e = new Employee("Name_" + i, "Surname_" + i, dList[i % 10].depName, r.Next(14, 70), r.Next(20000, 60000));
-                eList.Add(e);
-            }
-        }
-        
-        /// <summary>
-        /// Редактирование выбранного департамента
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lb_Departaments_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //редактирование выбранного департамента
-        }
+                EmpList.Add(new Employee() { name = "Name_" + i, surname = "Surname_" + i, depName = DepList[i % 10].depName, age = r.Next(14, 70), salary = (r.Next(20, 60)) * 1000 });
 
-        /// <summary>
-        /// редактирование выбранного сотрудника
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lb_Empoyees_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //редактирование выбранного сотрудника
+            }
         }
 
         /// <summary>
@@ -82,9 +64,7 @@ namespace Cs2_WPF_Tanaeva
         /// <param name="e"></param>
         private void btn_Deps_Click(object sender, RoutedEventArgs e)
         {
-            AddDep addDep = new AddDep();
-            addDep.Owner = this;
-            addDep.Show();
+            new AddDep(lw_Deps.SelectedItem as Departament).ShowDialog();
         }
 
         /// <summary>
@@ -94,9 +74,27 @@ namespace Cs2_WPF_Tanaeva
         /// <param name="e"></param>
         private void btn_Emps_Click(object sender, RoutedEventArgs e)
         {
-            AddEmp addEmp = new AddEmp();
-            addEmp.Owner = this;
-            addEmp.Show();
+            new AddEmp(lw_Deps.SelectedItem as Employee).ShowDialog();
+        }
+
+        /// <summary>
+        /// Форма редактирования департамента
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lwDeps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new EditDep(lw_Deps.SelectedItem as Departament).ShowDialog();
+        }
+
+        /// <summary>
+        /// Форма редактирования сотрудника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lwEmps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new EditEmp(lw_Emps.SelectedItem as Employee).ShowDialog();
         }
     }
 }

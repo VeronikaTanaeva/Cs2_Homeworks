@@ -19,7 +19,7 @@ namespace Cs2_WPF_Tanaeva
     /// </summary>
     public partial class AddEmp : Window
     {
-        public AddEmp()
+        public AddEmp(Employee e)
         {
             InitializeComponent();
         }
@@ -29,7 +29,7 @@ namespace Cs2_WPF_Tanaeva
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_AddEmp_Click(object sender, RoutedEventArgs e)
+        private void btn_AddEmp_Click(object sender, RoutedEventArgs ev)
         {
             //if (tb_Age != null && tb_Name != null && tb_Surname != null && tb_Salary != null) //проверка, что не создаём сотрудника с пустыми параметрами
             //    foreach (var e in MainWindow.eList) //проверка, что не пытаемся добавить сотрудника в несуществующий департамент

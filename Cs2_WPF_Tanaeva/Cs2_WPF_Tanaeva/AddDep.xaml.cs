@@ -19,9 +19,12 @@ namespace Cs2_WPF_Tanaeva
     /// </summary>
     public partial class AddDep : Window
     {
-        public AddDep()
+        public AddDep(Departament d)
         {
             InitializeComponent();
+            d = new Departament();
+            if (tb_DepName.Text != null)
+                d.depName = tb_DepName.ToString();            
         }
 
         /// <summary>
@@ -31,11 +34,10 @@ namespace Cs2_WPF_Tanaeva
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //if (tb_DepName.Text != null) //проверка, что не создаём департамент с пустыми параметрами
-            //{
-            //    Departament d = new Departament(tb_DepName.Text.ToString());
-            //    MainWindow.dList.Add(d);
-            //}
+            if (tb_DepName.Text != null) //проверка, что не создаём департамент с пустыми параметрами
+            {
+                //DepList.Add(new Departament { depName = tb_DepName.Text.ToString() });
+            }
         }
 
     }
