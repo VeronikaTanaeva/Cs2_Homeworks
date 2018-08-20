@@ -12,5 +12,6 @@ namespace Cs2_WPF_Tanaeva
     {
         public static int eCount = 50; //количество работников
         public static int dCount = 10; //количество департаментов
+        public static int EmpsInDep = 5; //изначально по 5 сотрудников в каждом департаменте
     }
 }

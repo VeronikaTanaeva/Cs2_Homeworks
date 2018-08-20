@@ -7,15 +7,13 @@ using System.ComponentModel;
 
 namespace Cs2_WPF_Tanaeva
 {
-    public class Employee: INotifyPropertyChanged
+    public class Employee
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string name { get; set; }
         public string surname { get; set; }
         public string depName { get; set; }
         public int age { get; set; }        
-        public double salary { get; set; }
+        public int salary { get; set; }
 
         public Employee()
         {
@@ -26,18 +24,6 @@ namespace Cs2_WPF_Tanaeva
             this.salary = salary;
         }
 
-        public void LoadData()
-        {
-
-        }
-
-        /// <summary>
-        /// Метод, возвращающий всю информацию о сотруднике в строке
-        /// </summary>
-        /// <returns></returns>
-        //public string EmpToString()
-        //{
-        //    return name + surname + departament + age.ToString() + salary.ToString();
-        //}
+        public void LoadData(){}
     }
 }

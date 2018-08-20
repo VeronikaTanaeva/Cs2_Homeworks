@@ -1,44 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Controls;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Cs2_WPF_Tanaeva
 {
     /// <summary>
-    /// Логика взаимодействия для AddDep.xaml
+    /// Логика взаимодействия для AddDep.xaml - формы добавления\редактирования департаментов
     /// </summary>
     public partial class AddDep : Window
     {
-        public AddDep(Departament d)
+        public DataRow resultRow { get; set; }
+        public AddDep(DataRow dataRow)
         {
             InitializeComponent();
-            d = new Departament();
-            if (tb_DepName.Text != null)
-                d.depName = tb_DepName.ToString();            
+            resultRow = dataRow;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tb_DepName.Text = resultRow["Name"].ToString();
         }
 
         /// <summary>
-        /// Добавление нового департамента по нажатию соответствующей кнопки
+        /// Сохранение ноывх данных о департаменте, если они были корректно введены
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (tb_DepName.Text != null) //проверка, что не создаём департамент с пустыми параметрами
+            try
             {
-                //DepList.Add(new Departament { depName = tb_DepName.Text.ToString() });
+                resultRow["Name"] = tb_DepName.Text;
+                this.DialogResult = true;
+            }
+            catch
+            {
+                MessageBox.Show("Неправильно введены параметры!");
+                this.DialogResult = false;
             }
         }
 
+        /// <summary>
+        /// Отмена внесённых изменений
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
     }
 }

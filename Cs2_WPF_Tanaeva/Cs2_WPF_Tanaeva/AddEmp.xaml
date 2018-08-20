@@ -18,7 +18,8 @@
         <TextBox Name="tb_Age" HorizontalAlignment="Left" Height="23" Margin="163,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="tb_Surname" HorizontalAlignment="Left" Height="23" Margin="163,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="tb_Name" HorizontalAlignment="Left" Height="23" Margin="163,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Name="btn_AddEmp" Content="Добавить!" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="75" Click="btn_AddEmp_Click"/>
+        <Button Name="btn_AddEmp" Content="Добавить!" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="75" Click="saveButton_Click"/>
+        <Button Name="btn_cancel" Content="Отмена" HorizontalAlignment="Left" Margin="252,182,0,0" VerticalAlignment="Top" Width="75" Click="cancelButton_Click"/>
 
     </Grid>
 </Window>

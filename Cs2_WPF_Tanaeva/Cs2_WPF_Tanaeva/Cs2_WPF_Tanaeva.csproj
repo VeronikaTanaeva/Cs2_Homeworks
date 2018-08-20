@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,14 +63,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditDep.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditEmp.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,12 +78,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Departament.cs" />
-    <Compile Include="EditDep.xaml.cs">
-      <DependentUpon>EditDep.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EditEmp.xaml.cs">
-      <DependentUpon>EditEmp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Employee.cs" />
     <Compile Include="IViewDeps.cs" />
     <Compile Include="IViewEmp.cs" />
@@ -126,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
